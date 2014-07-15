@@ -1,0 +1,57 @@
+
+---------------------------------three factors for SA 
+library(sem)
+# load data
+socialdata <- read.csv("C:/Users/wxdg5/Desktop/R sakai/updated data/three hidden factors/cleandata_three.csv")
+
+#calculate covariance
+data.sa.1 <- cov(socialdata)
+
+#model construction
+model.sa.1 <- specify.model()
+	cn -> p1, NA, 1
+	cn -> p5, 1, NA
+	sp -> i14, 1, NA
+	sp -> i15, r1, NA
+	sp -> i16, 1, NA
+	sp -> i17, 1, NA	
+	sn -> s25, 1, NA
+	sn -> s26, 1, NA
+	sn -> s27, 1, NA
+	sn -> s28, 1, NA
+	sn -> s29, 1, NA
+	sn -> s30, 1, NA
+	en -> time, 1, NA
+	en -> structure, 1, NA
+	en -> behavior, 1, NA
+	cn -> en, e1, NA
+	sp -> en, e2, NA
+	sn -> en, e3, NA
+	cn <-> cn, d1, NA
+	sp <-> sp, d2, NA
+	sn <-> sn, d3, NA
+	en <-> en, d4, NA
+	time <-> time, f1, NA
+	structure <-> structure, f2, NA
+	behavior <-> behavior, f3, NA
+	p1 <-> p1, 1, NA
+	p5 <-> p5, 1, NA
+	i14 <-> i14, NA, 1
+	i15 <-> i15, NA, 1
+	i16 <-> i16, NA, 1
+	i17 <-> i17, NA, 1
+	s25 <-> s25, 1, NA
+	s26 <-> s26, 1, NA
+	s27 <-> s27, 1, NA
+	s28 <-> s28, 1, NA
+	s29 <-> s29, 1, NA
+	s30 <-> s30, NA, 1
+
+model.sa.1
+sem.sa.1 <- sem(model.sa.1, data.sa.1, 24)
+
+#print result(fit indices, parameters, hypothesis tests)
+summary(sem.sa.1)
+
+-----------------------------------fitness index------------------------------
+summary(model.sa.1,fit.indices=c("GFI", "AGFI", "RMSEA", "NFI", "NNFI", "CFI", "RNI", "IFI", "SRMR", "AIC", "AICc", "BIC", "CAIC")) 
